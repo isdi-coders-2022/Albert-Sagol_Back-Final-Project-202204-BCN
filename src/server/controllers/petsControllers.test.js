@@ -1,5 +1,5 @@
 const Pet = require("../../database/models/Pet");
-const { getPets, deletePet, createPet } = require("./petsControllers");
+const { getPets, deletePet, createPet, editPet } = require("./petsControllers");
 
 describe("Given the getPets function", () => {
   describe("When it's called and there are pets in database", () => {
@@ -86,6 +86,35 @@ describe("Given the createPet function", () => {
       const expectedError = new Error("Error at create");
 
       await createPet(req, null, next);
+
+      expect(next).toBeCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given the editPet function", () => {
+  describe("When it's called and receives a request with a modifiedPet", () => {
+    test("Then it should call resposne with status 204", async () => {
+      const modifiedPet = "testPet";
+      const req = { body: { modifiedPet } };
+      const res = { status: jest.fn() };
+      Pet.findByIdAndUpdate = jest.fn();
+      const expectedStatus = 204;
+
+      await editPet(req, res);
+
+      expect(res.status).toBeCalledWith(expectedStatus);
+    });
+  });
+
+  describe("When it's called and receives a request without a pet", () => {
+    test("Then it should call next with error with message 'Error at modify'", async () => {
+      const req = { body: { modifiedPet: undefined } };
+      const next = jest.fn();
+      Pet.create = jest.fn().mockRejectedValue();
+      const expectedError = new Error("Error at modify");
+
+      await editPet(req, null, next);
 
       expect(next).toBeCalledWith(expectedError);
     });
