@@ -31,7 +31,9 @@ const createPet = async (req, res, next) => {
   const newPet = req.body;
 
   try {
-    const createdPet = await Pet.create(newPet);
+    const { id } = await Pet.create(newPet);
+
+    const createdPet = { ...newPet, id };
 
     res.status(201).json(createdPet);
   } catch {

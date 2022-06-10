@@ -1,7 +1,7 @@
 const mockedPets = [
   {
     name: "testPet1",
-    type: "dog",
+    animal: "dog",
     sex: "male",
     age: 5,
     description: "funny",
@@ -9,11 +9,11 @@ const mockedPets = [
   },
   {
     name: "testPet2",
-    type: "cat",
+    animal: "cat",
     sex: "female",
     age: 3,
     description: "grumpy",
-    specialTreatment: "like a Lady",
+    specialTreatment: "allways like a Lady",
   },
 ];
 

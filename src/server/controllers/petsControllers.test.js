@@ -67,8 +67,9 @@ describe("Given the createPet function", () => {
       const newPet = "testPet";
       const req = { body: { newPet } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      const createdPet = "testPetPlusId";
+      const createdPet = { newPet, id: "testPetPlusId" };
       Pet.create = jest.fn().mockResolvedValue(createdPet);
+
       const expectedStatus = 201;
 
       await createPet(req, res);

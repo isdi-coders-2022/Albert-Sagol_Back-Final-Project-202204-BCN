@@ -79,7 +79,7 @@ describe("Given the DELETE/pets/delete endpoint", () => {
   });
 });
 
-describe("Given the POST/pets/ endpoint", () => {
+describe("Given the POST/pets/create endpoint", () => {
   describe("When it receives a request with the newPet and a correct token", () => {
     test("Then it should create the pet in database and return status 201 and the response body have the property 'id'", async () => {
       const expectedPetsOnDatabase = 1;
