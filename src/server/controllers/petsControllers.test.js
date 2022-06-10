@@ -1,4 +1,5 @@
 const Pet = require("../../database/models/Pet");
+const mockedPets = require("../../mocks/petsMocks");
 const { getPets, deletePet, createPet, editPet } = require("./petsControllers");
 
 describe("Given the getPets function", () => {
@@ -64,12 +65,12 @@ describe("Given the deletePet function", () => {
 describe("Given the createPet function", () => {
   describe("When it's called and receives a request with a newPet inside", () => {
     test("Then it should call response with status 201 and json with the newPet plus id", async () => {
-      const newPet = "testPet";
-      const req = { body: { newPet } };
+      const newPet = mockedPets[0];
+      const req = { body: newPet };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      const createdPet = { newPet, id: "testPetPlusId" };
-      Pet.create = jest.fn().mockResolvedValue(createdPet);
-
+      const id = "testPetPlusId";
+      Pet.create = jest.fn().mockResolvedValue({ id });
+      const createdPet = { ...newPet, id };
       const expectedStatus = 201;
 
       await createPet(req, res);
