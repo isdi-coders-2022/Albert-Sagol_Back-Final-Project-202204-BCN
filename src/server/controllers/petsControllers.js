@@ -41,4 +41,18 @@ const createPet = async (req, res, next) => {
   }
 };
 
-module.exports = { getPets, deletePet, createPet };
+const editPet = async (req, res, next) => {
+  const modifiedPet = req.body;
+
+  try {
+    await Pet.findByIdAndUpdate(modifiedPet.id, modifiedPet);
+
+    res.status(204);
+  } catch {
+    const error = customError(409, "Error at edit", "Error at modify");
+
+    next(error);
+  }
+};
+
+module.exports = { getPets, deletePet, createPet, editPet };
