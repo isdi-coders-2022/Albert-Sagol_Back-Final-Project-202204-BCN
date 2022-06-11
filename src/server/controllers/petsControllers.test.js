@@ -96,16 +96,17 @@ describe("Given the createPet function", () => {
 
 describe("Given the editPet function", () => {
   describe("When it's called and receives a request with a modifiedPet", () => {
-    test("Then it should call resposne with status 204", async () => {
+    test("Then it should call resposne with status 204 and json", async () => {
       const modifiedPet = "testPet";
       const req = { body: { modifiedPet } };
-      const res = { status: jest.fn() };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       Pet.findByIdAndUpdate = jest.fn();
       const expectedStatus = 204;
 
       await editPet(req, res);
 
       expect(res.status).toBeCalledWith(expectedStatus);
+      expect(res.json).toBeCalled();
     });
   });
 
