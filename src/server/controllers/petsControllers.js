@@ -49,7 +49,7 @@ const editPet = async (req, res, next) => {
   try {
     await Pet.findByIdAndUpdate(modifiedPet.id, modifiedPet);
 
-    res.status(204);
+    res.status(204).json({});
   } catch {
     const error = customError(409, "Error at edit", "Error at modify");
 
