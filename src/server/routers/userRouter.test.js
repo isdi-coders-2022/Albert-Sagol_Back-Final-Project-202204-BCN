@@ -44,14 +44,14 @@ describe("Given a POST/user/login endpoint", () => {
 
   describe("When it receives a request with a not existing user in the database", () => {
     test("Then it should response with status error 403 and no token", async () => {
-      const user = {
+      const body = {
         username: "notExistingName",
-        password: "",
+        password: "notExistingPassword",
       };
 
       const { token } = await request(app)
         .post("/user/login")
-        .send(user)
+        .send(body)
         .expect(403);
 
       expect(token).toBeUndefined();
@@ -66,6 +66,7 @@ describe("Given a POST/user/register endpoint", () => {
         name: "testNewUser",
         username: "testNewUser",
         eMail: "testNewUser",
+        adminUser: false,
         password: "testNewUser",
       };
 
